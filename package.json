@@ -1,5 +1,5 @@
 {
-  "name": "framework-arduino-lpc176x",
+  "name": "pio-framework-arduino-lpc176x",
   "version": "0.2.9",
   "description": "Arduino Wiring-based Framework for the LPC176x MCU series",
   "keywords": [
@@ -9,6 +9,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/p3p/pio-framework-arduino-lpc176x"
+    "url": "https://github.com/Paciente8159/pio-framework-arduino-lpc176x"
   }
 }

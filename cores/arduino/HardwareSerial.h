@@ -369,7 +369,9 @@ public:
     if (IIRValue == UART_IIR_INTID_RDA) {
       // Clear the FIFO
       while (UART_Receive(UARTx, &byte, 1, NONE_BLOCKING)) {
-        if(!recv_callback(byte)) continue;
+        if(recv_callback){
+			recv_callback(byte);
+		}
         if ((RxQueueWritePos + 1) % RXB_SIZE != RxQueueReadPos) {
           RxBuffer[RxQueueWritePos] = byte;
           RxQueueWritePos = (RxQueueWritePos + 1) % RXB_SIZE;
