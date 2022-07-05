@@ -32,6 +32,8 @@ extern "C" {
   #include <lpc17xx_clkpwr.h>
   #include <lpc17xx_uart.h>
   #include "lpc17xx_pinsel.h"
+
+  typedef void (*HardwareSerialRXCallback) (char);
 }
 
 #if !defined(SERIAL_TX_BUFFER_SIZE)
@@ -65,7 +67,7 @@ template <uint32_t RXB_SIZE = SERIAL_RX_BUFFER_SIZE, uint32_t TXB_SIZE = SERIAL_
 class HardwareSerial : public Stream {
 private:
   LPC_UART_TypeDef *UARTx;
-
+  HardwareSerialRXCallback recv_callback;
   uint32_t Baudrate;
   uint32_t Status;
   std::array<uint8_t, RXB_SIZE> RxBuffer;
@@ -83,6 +85,7 @@ public:
     , RxQueueReadPos(0)
     , TxQueueWritePos(0)
     , TxQueueReadPos(0)
+	, recv_callback(NULL)
   {
   }
 
@@ -336,7 +339,10 @@ public:
   }
 
   operator bool() { return true; }
-  virtual bool recv_callback(const char c) { return true; }
+
+  void attachInterrupt(HardwareSerialRXCallback callback_func) {
+	recv_callback = callback_func;
+  }
 
   void IRQHandler() {
     uint32_t IIRValue;
