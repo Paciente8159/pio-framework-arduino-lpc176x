@@ -67,7 +67,6 @@ template <uint32_t RXB_SIZE = SERIAL_RX_BUFFER_SIZE, uint32_t TXB_SIZE = SERIAL_
 class HardwareSerial : public Stream {
 private:
   LPC_UART_TypeDef *UARTx;
-  HardwareSerialRXCallback recv_callback;
   uint32_t Baudrate;
   uint32_t Status;
   std::array<uint8_t, RXB_SIZE> RxBuffer;
@@ -76,6 +75,7 @@ private:
   std::array<uint8_t, TXB_SIZE> TxBuffer;
   uint32_t TxQueueWritePos;
   uint32_t TxQueueReadPos;
+  HardwareSerialRXCallback recv_callback;
 
 public:
   HardwareSerial(LPC_UART_TypeDef *UARTx)
@@ -371,6 +371,7 @@ public:
       while (UART_Receive(UARTx, &byte, 1, NONE_BLOCKING)) {
         if(recv_callback){
 			recv_callback(byte);
+			break;
 		}
         if ((RxQueueWritePos + 1) % RXB_SIZE != RxQueueReadPos) {
           RxBuffer[RxQueueWritePos] = byte;
