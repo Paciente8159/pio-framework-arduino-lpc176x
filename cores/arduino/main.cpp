@@ -8,13 +8,13 @@ extern "C" {
 #include <pwm.h>
 #include <adc.h>
 
- __attribute__ ((weak)) void SysTick_Callback() {}
-
 extern void setup();
 extern void loop();
 
 extern "C" {
   volatile uint64_t _millis;
+
+   __attribute__ ((weak)) void SysTick_Callback(void) {}
 
   uint32_t SysTick_Config(uint32_t ticks) {
     if (ticks > SysTick_LOAD_RELOAD_Msk) return 1;
