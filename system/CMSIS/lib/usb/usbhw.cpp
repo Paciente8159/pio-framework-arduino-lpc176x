@@ -663,7 +663,7 @@ uint32_t USB_GetFrame (void) {
 /*
  *  USB Interrupt Service Routine
  */
-void USB_IRQHandler (void) {
+__attribute__ ((weak)) void USB_IRQHandler (void) {
   uint32_t disr, val, n, m;
   uint32_t episr, episrCur;
 

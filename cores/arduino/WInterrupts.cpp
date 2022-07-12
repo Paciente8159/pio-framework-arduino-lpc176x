@@ -123,7 +123,7 @@ extern "C" void GpioDisableInt(const uint32_t port, const uint32_t pin) {
   }
 }
 
-extern "C" void EINT3_IRQHandler(void) {
+extern "C" __attribute__ ((weak)) void EINT3_IRQHandler(void) {
   // Read in all current interrupt registers. We do this once as the
   // GPIO interrupt registers are on the APB bus, and this is slow.
   uint32_t rise0 = LPC_GPIOINT->IO0IntStatR,

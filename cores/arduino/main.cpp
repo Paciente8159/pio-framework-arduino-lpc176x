@@ -29,7 +29,7 @@ extern "C" {
     return 0;
   }
 
-  void SysTick_Handler(void) {
+  __attribute__ ((weak)) void SysTick_Handler(void) {
     ++_millis;
     SysTick_Callback();
   }

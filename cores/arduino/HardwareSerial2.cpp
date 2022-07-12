@@ -34,7 +34,7 @@
 // first place.
 
 HardwareSerial<> Serial2 = HardwareSerial<>(LPC_UART2);
-extern "C" void UART2_IRQHandler(void) {
+extern "C" __attribute__ ((weak)) void UART2_IRQHandler(void) {
   Serial2.IRQHandler();
 }
 

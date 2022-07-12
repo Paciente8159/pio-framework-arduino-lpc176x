@@ -24,7 +24,7 @@ auto end_pin = pwm_frame.end();
     1.3 us match ISR, if all 20 software PWM channels fire within the same interrupt it takes ~5us
 */
 extern "C" 
-[[gnu::optimize("O3")]] void TIMER3_IRQHandler(void) {
+[[gnu::optimize("O3")]] __attribute__ ((weak)) void TIMER3_IRQHandler(void) {
   constexpr std::array<uint8_t, 3> MR_int {3, 6, 9};
   const uint32_t interrupts = LPC_TIM3->IR;
   LPC_TIM3->IR = interrupts;  // clear all interrupts

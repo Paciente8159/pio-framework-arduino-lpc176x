@@ -235,7 +235,7 @@ inline void SoftwareSerial::setRXTX(bool input) {
 }
 
 extern "C" 
-[[gnu::optimize("O3")]] void RIT_IRQHandler(void) {
+[[gnu::optimize("O3")]] __attribute__ ((weak)) void RIT_IRQHandler(void) {
   LPC_RIT->RICTRL |= 1;
   SoftwareSerial::handle_interrupt();
 }

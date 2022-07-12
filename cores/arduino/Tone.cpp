@@ -40,7 +40,7 @@ void noTone(const pin_t _pin) {
   tone_pin = P_NC;
 }
 
-extern "C" [[gnu::optimize("O3")]] void TIMER2_IRQHandler(void) {
+extern "C" [[gnu::optimize("O3")]] __attribute__ ((weak)) void TIMER2_IRQHandler(void) {
   const uint32_t interrupts = LPC_TIM2->IR;
   LPC_TIM2->IR = interrupts;  // clear all interrupts
   if (toggles != 0) {
